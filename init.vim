@@ -34,7 +34,6 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 
 nnoremap <C-p> :Telescope find_files<CR>
-nnoremap <C-P> :Telescope live_grep<CR>
 nnoremap <C-b> :Telescope buffers<CR>
 
 let g:NERDTreeDirArrowExpandable="+"
