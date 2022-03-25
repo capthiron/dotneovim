@@ -13,6 +13,7 @@
 :set smarttab
 :set softtabstop=4
 :set mouse=a
+:set signcolumn=number
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -24,6 +25,7 @@ Plug 'nvim-lua/plenary.nvim' " Telescope requires plenary to function
 Plug 'nvim-telescope/telescope.nvim' " The main Telescope plugin
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make' } " An optional plugin recommended by Telescope docs
 Plug 'tpope/vim-fugitive' " vim-fugitive (git)
+Plug 'lewis6991/gitsigns.nvim' " gitsigns (marks git changes)
 
 call plug#end()
 
