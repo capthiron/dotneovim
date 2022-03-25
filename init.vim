@@ -13,11 +13,11 @@
 :set smarttab
 :set softtabstop=4
 :set mouse=a
-:set signcolumn=number
 
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'shaunsingh/nord.nvim' " nord theme
+Plug 'neovim/nvim-lspconfig' " lsp config
 Plug 'nvim-lualine/lualine.nvim' " lualine status bar
 Plug 'kyazdani42/nvim-web-devicons' " lualine icons
 Plug 'preservim/nerdtree' " nerdtree explorer
