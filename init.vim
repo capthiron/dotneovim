@@ -51,7 +51,7 @@ Plug 'neovim/nvim-lspconfig' " lsp config
 Plug 'onsails/lspkind-nvim' " lsp kind annotations (e. g. variable, function, etc.)
 Plug 'nvim-lualine/lualine.nvim' " lualine status bar
 Plug 'kyazdani42/nvim-web-devicons' " lualine icons
-Plug 'preservim/nerdtree' " nerdtree explorer
+Plug 'kyazdani42/nvim-tree.lua' "nvin-tree navigation
 Plug 'nvim-telescope/telescope.nvim' " The main Telescope plugin
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make' } " An optional plugin recommended by Telescope docs
 Plug 'nvim-lua/plenary.nvim' " Telescope requires plenary to function
@@ -98,8 +98,7 @@ inoremap <Right> <Nop>
 " Map Esc, to perform quick switching between Normal and Insert mode
 inoremap jk <Esc>
 
-nnoremap <C-f> :NERDTreeFocus<cr>
-nnoremap <C-t> :NERDTreeToggle<cr>
+nnoremap <C-t> :NvimTreeToggle<cr>
 
 nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <C-b> :Telescope buffers<cr>
