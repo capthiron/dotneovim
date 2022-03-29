@@ -77,6 +77,9 @@ inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
 
+" Map Esc, to perform quick switching between Normal and Insert mode
+inoremap jk <Esc>
+
 nnoremap <C-f> :NERDTreeFocus<cr>
 nnoremap <C-n> :NERDTree<cr>
 nnoremap <C-t> :NERDTreeToggle<cr>
