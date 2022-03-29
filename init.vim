@@ -8,6 +8,22 @@
 "
 "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
+"░▒█▀▀█░█▀▀▄░█▀▀░░░░▒█▀▀▄░█░░░░█▀▀░█▀▄░█░▄░█▀▀
+"░▒█▄▄█░█▄▄▀░█▀▀░▀▀░▒█░░░░█▀▀█░█▀▀░█░░░█▀▄░▀▀▄
+"░▒█░░░░▀░▀▀░▀▀▀░░░░▒█▄▄▀░▀░░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀
+
+" Ensure the following tools are installed in the system
+let s:exec_list = ['git', 'curl', 'python3', 'rg', 'npm', 'lolcat', 'gopls']
+
+for s:exec in s:exec_list
+  if !executable(s:exec)
+    echoerr printf('[nvim] `%s` is needed!', s:exec)
+
+    finish
+  endif
+endfor
+
+
 "░▒█░░▒█░█▀▀▄░█▀▀▄░░▀░░█▀▀▄░█▀▀▄░█░░█▀▀░█▀▀
 "░░▒█▒█░░█▄▄█░█▄▄▀░░█▀░█▄▄█░█▀▀▄░█░░█▀▀░▀▀▄
 "░░░▀▄▀░░▀░░▀░▀░▀▀░▀▀▀░▀░░▀░▀▀▀▀░▀▀░▀▀▀░▀▀▀
@@ -81,16 +97,19 @@ inoremap <Right> <Nop>
 inoremap jk <Esc>
 
 nnoremap <C-f> :NERDTreeFocus<cr>
-nnoremap <C-n> :NERDTree<cr>
 nnoremap <C-t> :NERDTreeToggle<cr>
 
 nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <C-b> :Telescope buffers<cr>
 nnoremap <C-g> :Telescope live_grep<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>ff :Telescope find_files<cr>
+nnoremap <leader>fg :Telescope live_grep<cr>
+nnoremap <leader>fb :Telescope buffers<cr>
+nnoremap <leader>fh :Telescope help_tags<cr>
+
+nnoremap <silent> gd :Telescope lsp_definitions<cr>
+nnoremap <silent> gi :Telescope lsp_implementations<cr>
+nnoremap <silent> gr :Telescope lsp_references<cr>
 
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
