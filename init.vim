@@ -67,6 +67,16 @@ colorscheme nord
 "░▒█▀▄░░█▀▀░█▄▄█░█▀▀▄░░█▀░█░▒█░█░█░░█▀░█░▒█░█░▀▄░▀▀▄
 "░▒█░▒█░▀▀▀░▄▄▄▀░▀▀▀▀░▀▀▀░▀░░▀░▀▀░░▀▀▀░▀░░▀░▀▀▀▀░▀▀▀
 
+" Unbind default bindings for arrow keys, trust me this is for your own good
+noremap  <Up> <Nop>
+noremap  <Down> <Nop>
+noremap  <Left> <Nop>
+noremap  <Right> <Nop>
+inoremap <Up> <Nop>
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+
 nnoremap <C-f> :NERDTreeFocus<cr>
 nnoremap <C-n> :NERDTree<cr>
 nnoremap <C-t> :NERDTreeToggle<cr>
