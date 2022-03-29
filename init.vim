@@ -31,7 +31,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'shaunsingh/nord.nvim' " nord theme
 Plug 'glepnir/dashboard-nvim' " dashboard-nvim
 Plug 'neovim/nvim-lspconfig' " lsp config
-Plug 'onsails/lspkind-nvim' " lsp config
+Plug 'onsails/lspkind-nvim' " lsp kind annotations (e. g. variable, function, etc.)
 Plug 'nvim-lualine/lualine.nvim' " lualine status bar
 Plug 'kyazdani42/nvim-web-devicons' " lualine icons
 Plug 'preservim/nerdtree' " nerdtree explorer
