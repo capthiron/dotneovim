@@ -70,6 +70,8 @@ Plug 'hrsh7th/nvim-cmp'
 " snippets 
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
+" auto-pairs
+Plug 'windwp/nvim-autopairs'
 
 call plug#end()
 
