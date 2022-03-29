@@ -56,7 +56,8 @@ Plug 'nvim-telescope/telescope.nvim' " The main Telescope plugin
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make' } " An optional plugin recommended by Telescope docs
 Plug 'nvim-lua/plenary.nvim' " Telescope requires plenary to function
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'tpope/vim-fugitive' " vim-fugitive (git)
+Plug 'tpope/vim-fugitive' " a git wrapper so awesome, it should be illegal
+Plug 'junegunn/gv.vim' " a git commit browser
 Plug 'lewis6991/gitsigns.nvim' " gitsigns (marks git changes)
 
 " autocompletion
