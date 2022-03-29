@@ -20,6 +20,7 @@
 :set smarttab
 :set softtabstop=4
 :set mouse=a
+let mapleader = " " " map leader to Space
 
 
 "░▒█▀▀█░█░░█░▒█░█▀▀▀░░▀░░█▀▀▄░█▀▀
@@ -35,9 +36,9 @@ Plug 'onsails/lspkind-nvim' " lsp kind annotations (e. g. variable, function, et
 Plug 'nvim-lualine/lualine.nvim' " lualine status bar
 Plug 'kyazdani42/nvim-web-devicons' " lualine icons
 Plug 'preservim/nerdtree' " nerdtree explorer
-Plug 'nvim-lua/plenary.nvim' " Telescope requires plenary to function
 Plug 'nvim-telescope/telescope.nvim' " The main Telescope plugin
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make' } " An optional plugin recommended by Telescope docs
+Plug 'nvim-lua/plenary.nvim' " Telescope requires plenary to function
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'tpope/vim-fugitive' " vim-fugitive (git)
 Plug 'lewis6991/gitsigns.nvim' " gitsigns (marks git changes)
@@ -66,12 +67,17 @@ colorscheme nord
 "░▒█▀▄░░█▀▀░█▄▄█░█▀▀▄░░█▀░█░▒█░█░█░░█▀░█░▒█░█░▀▄░▀▀▄
 "░▒█░▒█░▀▀▀░▄▄▄▀░▀▀▀▀░▀▀▀░▀░░▀░▀▀░░▀▀▀░▀░░▀░▀▀▀▀░▀▀▀
 
-nnoremap <C-f> :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFocus<cr>
+nnoremap <C-n> :NERDTree<cr>
+nnoremap <C-t> :NERDTreeToggle<cr>
 
-nnoremap <C-p> :Telescope find_files<CR>
-nnoremap <C-b> :Telescope buffers<CR>
+nnoremap <C-p> :Telescope find_files<cr>
+nnoremap <C-b> :Telescope buffers<cr>
+nnoremap <C-g> :Telescope live_grep<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
