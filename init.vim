@@ -59,6 +59,7 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'tpope/vim-fugitive' " a git wrapper so awesome, it should be illegal
 Plug 'junegunn/gv.vim' " a git commit browser
 Plug 'lewis6991/gitsigns.nvim' " gitsigns (marks git changes)
+Plug 'Pocco81/AutoSave.nvim' " autosave plugin
 
 " autocompletion
 Plug 'hrsh7th/cmp-nvim-lsp'
