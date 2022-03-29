@@ -1,7 +1,7 @@
 local telescope = require('telescope')
 
 telescope.setup {
-	defaults = { 
+	defaults = {
 		file_ignore_patterns = {
 			"node_modules",
 			"plugged",
