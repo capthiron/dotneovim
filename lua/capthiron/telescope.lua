@@ -15,5 +15,7 @@ telescope.setup {
 	}
 }
 
+-- load telescope-file-browser
+telescope.load_extension('file_browser')
 -- load fzf
 telescope.load_extension('fzf')
