@@ -53,6 +53,7 @@ Plug 'nvim-lualine/lualine.nvim' " lualine status bar
 Plug 'kyazdani42/nvim-web-devicons' " lualine icons
 Plug 'kyazdani42/nvim-tree.lua' "nvin-tree navigation
 Plug 'nvim-telescope/telescope.nvim' " The main Telescope plugin
+Plug 'nvim-telescope/telescope-file-browser.nvim' " telescope-file-browser
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make' } " An optional plugin recommended by Telescope docs
 Plug 'nvim-lua/plenary.nvim' " Telescope requires plenary to function
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
@@ -102,20 +103,19 @@ inoremap jk <Esc>
 
 nnoremap <C-t> :NvimTreeToggle<cr>
 
+nnoremap <leader>ss :SessionSave<cr>
+nnoremap <leader>sl :SessionLoad<cr>
+
 nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <C-b> :Telescope buffers<cr>
 nnoremap <C-g> :Telescope live_grep<cr>
 nnoremap <leader>ff :Telescope find_files<cr>
 nnoremap <leader>fg :Telescope live_grep<cr>
-nnoremap <leader>fb :Telescope buffers<cr>
+nnoremap <leader>fb :Telescope file_browser<cr>
 nnoremap <leader>fh :Telescope help_tags<cr>
 
 nnoremap <silent> gd :Telescope lsp_definitions<cr>
 nnoremap <silent> gi :Telescope lsp_implementations<cr>
 nnoremap <silent> gr :Telescope lsp_references<cr>
-
-let g:NERDTreeDirArrowExpandable="+"
-let g:NERDTreeDirArrowCollapsible="~"
-let g:dashboard_default_executive="telescope"
 
 lua require('capthiron')
