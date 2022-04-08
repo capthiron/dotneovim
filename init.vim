@@ -61,6 +61,7 @@ Plug 'tpope/vim-fugitive' " a git wrapper so awesome, it should be illegal
 Plug 'junegunn/gv.vim' " a git commit browser
 Plug 'lewis6991/gitsigns.nvim' " gitsigns (marks git changes)
 Plug 'Pocco81/AutoSave.nvim' " autosave plugin
+Plug 'b3nj5m1n/kommentary' " kommentary plugin - toggle via gcc [N] and gc [V]
 
 " autocompletion
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -117,5 +118,6 @@ nnoremap <leader>fh :Telescope help_tags<cr>
 nnoremap <silent> gd :Telescope lsp_definitions<cr>
 nnoremap <silent> gi :Telescope lsp_implementations<cr>
 nnoremap <silent> gr :Telescope lsp_references<cr>
+nnoremap <silent> ca :Telescope lsp_code_actions<cr>
 
 lua require('capthiron')
