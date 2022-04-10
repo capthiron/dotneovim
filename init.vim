@@ -51,7 +51,7 @@ Plug 'neovim/nvim-lspconfig' " lsp config
 Plug 'onsails/lspkind-nvim' " lsp kind annotations (e. g. variable, function, etc.)
 Plug 'nvim-lualine/lualine.nvim' " lualine status bar
 Plug 'kyazdani42/nvim-web-devicons' " lualine icons
-Plug 'kyazdani42/nvim-tree.lua' "nvin-tree navigation
+Plug 'kyazdani42/nvim-tree.lua' "nvim-tree navigation
 Plug 'nvim-telescope/telescope.nvim' " The main Telescope plugin
 Plug 'nvim-telescope/telescope-file-browser.nvim' " telescope-file-browser
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make' } " An optional plugin recommended by Telescope docs
