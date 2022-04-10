@@ -6,4 +6,6 @@ autosave.hook_after_saving = function ()
 	end
 end
 
-autosave.setup()
+autosave.setup({
+	write_all_buffers = true
+})
