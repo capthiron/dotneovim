@@ -1,9 +1,9 @@
 local autosave = require("autosave")
 
 autosave.hook_after_saving = function ()
-	if vim.bo.filetype == "elm" then
+	--[[ if vim.bo.filetype == "elm" then
 		vim.lsp.buf.formatting()
-	end
+	end ]]
 end
 
 autosave.setup({
