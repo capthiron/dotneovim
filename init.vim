@@ -62,6 +62,7 @@ Plug 'junegunn/gv.vim' " a git commit browser
 Plug 'lewis6991/gitsigns.nvim' " gitsigns (marks git changes)
 Plug 'Pocco81/AutoSave.nvim' " autosave plugin
 Plug 'b3nj5m1n/kommentary' " kommentary plugin - toggle via gcc [N] and gc [V]
+Plug 'ThePrimeagen/vim-be-good' " game to practice your vim skills
 
 " autocompletion
 Plug 'hrsh7th/cmp-nvim-lsp'
