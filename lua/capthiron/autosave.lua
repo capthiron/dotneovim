@@ -1,4 +1,4 @@
-local autosave = require("autosave")
+local autosave = require("auto-save")
 
 autosave.hook_after_saving = function ()
 	--[[ if vim.bo.filetype == "elm" then
