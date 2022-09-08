@@ -63,6 +63,7 @@ Plug 'lewis6991/gitsigns.nvim' " gitsigns (marks git changes)
 Plug 'Pocco81/auto-save.nvim' " autosave plugin
 Plug 'b3nj5m1n/kommentary' " kommentary plugin - toggle via gcc [N] and gc [V]
 Plug 'ThePrimeagen/vim-be-good' " game to practice your vim skills
+Plug 'ThePrimeagen/harpoon'
 
 " autocompletion
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -120,5 +121,19 @@ nnoremap <silent> gd :Telescope lsp_definitions<cr>
 nnoremap <silent> gi :Telescope lsp_implementations<cr>
 nnoremap <silent> gr :Telescope lsp_references<cr>
 nnoremap <silent> ca :Telescope lsp_code_actions<cr>
+
+" harpoon
+nnoremap <leader>hh :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <leader>ht :lua require("harpoon.term").gotoTerminal(1)<cr>
+
+nnoremap <leader>hm :lua require("harpoon.mark").add_file()<CR>
+nnoremap <leader>hc :lua require("harpoon.mark").clear_all()<CR>
+
+nnoremap <leader>jj :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <leader>kk :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <leader>ll :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <leader>;; :lua require("harpoon.ui").nav_file(4)<CR>
+
+:tnoremap <Esc> <C-\><C-n>
 
 lua require('capthiron')

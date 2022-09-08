@@ -1,6 +1,7 @@
 require('capthiron/autosave')
 require('capthiron/dashboardnvim')
 require('capthiron/gitsigns')
+require('capthiron/harpoon')
 require('capthiron/lsp')
 require('capthiron/lspkind')
 require('capthiron/lualine')
