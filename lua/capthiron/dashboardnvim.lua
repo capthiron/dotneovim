@@ -1,25 +1,27 @@
-vim.g.dashboard_default_executive = 'telescope'
-vim.g.dashboard_custom_section = {
-	a_last_session = {
-		description = {' Open last session                     SPC s l'},
-		command = 'SessionLoad',
-	},
-	b_find_file = {
-		description = {' Find file                             SPC f f'},
-		command = 'DashboardFindFile',
-	},
-	c_find_word = {
-		description = {' Find word                             SPC f g'},
-		command = 'Telescope live_grep',
-	},
-	d_change_colorscheme = {
-		description = {' Change theme                                 '},
-		command = 'DashboardChangeColorscheme',
-	},
+local home = os.getenv('HOME')
+local db = require('dashboard')
+-- macos
+db.preview_command = 'cat | lolcat -F 0.3'
+
+db.preview_file_path = home .. '/.config/nvim/static/clepto.cat'
+db.preview_file_height = 15
+db.preview_file_width = 70
+db.custom_center = {
+  {icon = '⇀  ',
+  desc = 'Harpoon Quick Menu                      ',
+  action =  'lua require("harpoon.ui").toggle_quick_menu()',
+  shortcut = 'SPC h h'},
+  {icon = '  ',
+  desc = 'Find  File                              ',
+  action = 'Telescope find_files find_command=rg,--hidden,--files',
+  shortcut = 'SPC f f'},
+  {icon = '  ',
+  desc ='File Browser                            ',
+  action =  'Telescope file_browser',
+  shortcut = 'SPC f b'},
+  {icon = '  ',
+  desc = 'Find  word                              ',
+  action = 'Telescope live_grep',
+  shortcut = 'SPC f g'},
 }
 
-vim.g.dashboard_preview_command = 'cat'
-vim.g.dashboard_preview_pipeline = 'lolcat'
-vim.g.dashboard_preview_file = '~/.config/nvim/neovim.cat'
-vim.g.dashboard_preview_file_height = 12
-vim.g.dashboard_preview_file_width = 80
