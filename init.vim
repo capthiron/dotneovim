@@ -114,7 +114,7 @@ nnoremap <C-b> :Telescope buffers<cr>
 nnoremap <C-g> :Telescope live_grep<cr>
 nnoremap <leader>ff :Telescope find_files<cr>
 nnoremap <leader>fg :Telescope live_grep<cr>
-nnoremap <leader>fb :Telescope file_browser<cr>
+nnoremap <leader>fb :Telescope file_browser hidden=true<cr>
 nnoremap <leader>fh :Telescope help_tags<cr>
 
 nnoremap <silent> gd :Telescope lsp_definitions<cr>
