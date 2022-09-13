@@ -128,7 +128,6 @@ nnoremap <leader>ht :lua require("harpoon.term").gotoTerminal(1)<cr>
 
 nnoremap <leader>hm :lua require("harpoon.mark").add_file()<CR>
 nnoremap <leader>hc :lua require("harpoon.mark").clear_all()<CR>
-
 nnoremap <leader>jj :lua require("harpoon.ui").nav_file(1)<CR>
 nnoremap <leader>kk :lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <leader>ll :lua require("harpoon.ui").nav_file(3)<CR>
