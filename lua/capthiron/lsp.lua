@@ -25,7 +25,7 @@ local on_attach = function(_, bufnr)
     buf_set_keymap('n', '<C-f>', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()) -- autocompletion integration with cmp
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()) -- autocompletion integration with cmp
 for _, lsp in ipairs(servers) do
 	if nvim_lsp ~= 'gopls' then
 		nvim_lsp[lsp].setup {
