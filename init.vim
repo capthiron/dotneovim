@@ -46,7 +46,6 @@ let mapleader = " " " map leader to Space
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'shaunsingh/nord.nvim' " nord theme
-Plug 'glepnir/dashboard-nvim' " dashboard-nvim
 Plug 'neovim/nvim-lspconfig' " lsp config
 Plug 'onsails/lspkind-nvim' " lsp kind annotations (e. g. variable, function, etc.)
 Plug 'nvim-lualine/lualine.nvim' " lualine status bar
