@@ -1,5 +1,5 @@
 local nvim_lsp = require('lspconfig')
-local servers = { 'ansiblels', 'bashls', 'dockerls', 'elmls', 'eslint', 'gopls', 'html', 'pyright', 'sqls', 'svelte', 'tailwindcss', 'terraformls', 'tsserver', 'sumneko_lua' }
+local servers = { 'ansiblels', 'astro', 'bashls', 'dockerls', 'elmls', 'eslint', 'gopls', 'html', 'pyright', 'rust_analyzer', 'sqlls', 'svelte', 'tailwindcss', 'terraformls', 'tsserver', 'lua_ls' }
 
 local on_attach = function(_, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end

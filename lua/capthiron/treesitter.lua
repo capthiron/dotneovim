@@ -5,6 +5,7 @@ treesitter.setup {
         enable = true
     },
 	ensure_installed = {
+		"astro",
 		"bash",
 		"c",
 		"dockerfile",
@@ -15,8 +16,10 @@ treesitter.setup {
 		"json",
 		"lua",
 		"python",
+		"rust",
 		"scss",
 		"svelte",
+		"terraform",
 		"tsx",
 		"vim",
 		"yaml",

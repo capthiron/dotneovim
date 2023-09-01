@@ -63,6 +63,7 @@ Plug 'Pocco81/auto-save.nvim' " autosave plugin
 Plug 'b3nj5m1n/kommentary' " kommentary plugin - toggle via gcc [N] and gc [V]
 Plug 'ThePrimeagen/vim-be-good' " game to practice your vim skills
 Plug 'ThePrimeagen/harpoon'
+Plug 'williamboman/mason.nvim' " portable package manager
 
 " autocompletion
 Plug 'hrsh7th/cmp-nvim-lsp'
