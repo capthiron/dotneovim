@@ -18,8 +18,8 @@ return {
 					{ "fileformat" },
 					{ "filetype" },
 				},
-				options = { theme = "tokyonight" },
 			},
+			options = { theme = "tokyonight" },
 		})
 	end,
 }
