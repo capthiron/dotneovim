@@ -1,0 +1,1 @@
+require("capthiron.config.lazy")
