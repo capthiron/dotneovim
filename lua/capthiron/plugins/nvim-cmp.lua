@@ -41,6 +41,7 @@ return {
 				{ name = "luasnip" }, -- snippets
 				{ name = "buffer" }, -- text within current buffer
 				{ name = "path" }, -- file system paths
+				{ name = "conventionalcommits" }, -- conventional commits
 			}),
 			-- configure lspkind for vs-code like icons
 			formatting = {
