@@ -40,18 +40,11 @@ return {
 					"scss",
 					"svelte",
 					"terraform",
-					"tsx",
-					"typescript",
 					"vim",
 					"yaml",
 				},
 				-- auto install above language parsers
 				auto_install = true,
-				-- enable nvim-ts-context-commentstring plugin for commenting tsx and jsx
-				context_commentstring = {
-					enable = true,
-					enable_autocmd = false,
-				},
 			})
 		end,
 	},

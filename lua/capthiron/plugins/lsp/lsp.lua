@@ -31,15 +31,11 @@ return {
 			"svelte",
 			"tailwindcss",
 			"terraformls",
-			"tsserver",
 			"lua_ls",
 		}
 
 		-- import cmp-nvim-lsp plugin
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
-		-- import typescript plugin
-		local typescript = require("typescript")
 
 		local keymap = vim.keymap -- for conciseness
 
@@ -87,18 +83,6 @@ return {
 
 			opts.desc = "Restart LSP"
 			keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
-
-			-- typescript specific keymaps (e.g. rename file and update imports)
-			if client.name == "tsserver" then
-				opts.desc = "Rename file and update file imports"
-				keymap.set("n", "<leader>rf", ":TypescriptRenameFile<CR>") -- rename file and update imports
-
-				opts.desc = "Rename file and update file imports"
-				keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>", opts) -- organize imports (not in youtube nvim video)
-
-				opts.desc = "Remove unused imports"
-				keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>", opts) -- remove unused variables (not in youtube nvim video)
-			end
 		end
 
 		-- used to enable autocompletion (assign to every lsp server config)
@@ -135,14 +119,6 @@ return {
 					},
 					staticcheck = true,
 				},
-			},
-		})
-
-		-- configure typescript server with plugin
-		typescript.setup({
-			server = {
-				capabilities = capabilities,
-				on_attach = on_attach,
 			},
 		})
 
