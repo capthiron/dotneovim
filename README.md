@@ -23,7 +23,7 @@ Ensure you have the latest ['stable'](https://github.com/neovim/neovim/releases/
 
 ### Setup Requires
 
-- True Color Terminal Like: [WezTerm](https://wezfurlong.org/wezterm/)
+- True Color Terminal Like: [Ghostty](https://ghostty.org/)
 - [Neovim](https://neovim.io/) (Version 0.9 or Later)
 - [Nerd Font](https://www.nerdfonts.com/) - I use Iosevka Nerd Font
 - [Ripgrep](https://github.com/BurntSushi/ripgrep) - For Telescope Fuzzy Finder
@@ -33,7 +33,7 @@ Ensure you have the latest ['stable'](https://github.com/neovim/neovim/releases/
 If you're on Mac, like me, you can install WezTerm, Neovim, Ripgrep, and Node with Homebrew.
 
 ```bash
-brew install --cask wezterm
+brew install --cask ghostty
 brew install neovim
 brew install ripgrep
 brew install node
