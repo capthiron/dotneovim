@@ -1,0 +1,21 @@
+# Check Lua Formatting
+name: Check Lua Formatting
+on: pull_request_target
+
+jobs:
+  stylua-check:
+    if: github.repository == 'capthiron/dotneovim'
+    name: Stylua Check
+    runs-on: ubuntu-24
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Stylua Check
+        uses: JohnnyMorganz/stylua-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --check .
+
