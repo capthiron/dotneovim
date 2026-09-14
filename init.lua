@@ -386,6 +386,11 @@ require('lazy').setup({
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
+      -- Persistent prompt history backed by sqlite. Lets <Up>/<Down> cycle
+      -- through previous searches across nvim sessions.
+      { 'nvim-telescope/telescope-smart-history.nvim' },
+      { 'kkharji/sqlite.lua' },
+
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
@@ -421,9 +426,20 @@ require('lazy').setup({
             'node_modules/',
             'vendor/',
           },
-          --   mappings = {
-          --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          --   },
+          history = {
+            path = vim.fn.stdpath 'data' .. '/telescope_history.sqlite3',
+            limit = 100,
+          },
+          mappings = {
+            i = {
+              ['<Up>'] = require('telescope.actions').cycle_history_prev,
+              ['<Down>'] = require('telescope.actions').cycle_history_next,
+            },
+            n = {
+              ['<Up>'] = require('telescope.actions').cycle_history_prev,
+              ['<Down>'] = require('telescope.actions').cycle_history_next,
+            },
+          },
         },
         pickers = {
           find_files = {
@@ -440,6 +456,7 @@ require('lazy').setup({
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'smart_history')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -498,7 +515,7 @@ require('lazy').setup({
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
@@ -548,6 +565,17 @@ require('lazy').setup({
       ---@type table<string, vim.lsp.Config>
       local servers = {
         gopls = {
+          root_dir = function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            if fname:find '/vendor/' then
+              local clients = vim.lsp.get_clients { name = 'gopls' }
+              if #clients > 0 then
+                on_dir(clients[#clients].config.root_dir)
+                return
+              end
+            end
+            on_dir(vim.fs.root(fname, 'go.work') or vim.fs.root(fname, 'go.mod') or vim.fs.root(fname, '.git'))
+          end,
           settings = {
             buildFlags = { '-tags=unit,integration' },
           },
@@ -564,7 +592,7 @@ require('lazy').setup({
         sqlls = {},
         dockerls = {},
         terraformls = {},
-        ts_ls = {},
+        vtsls = {},
         stylua = {},
         lua_ls = {
           on_init = function(client)
@@ -668,7 +696,7 @@ require('lazy').setup({
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      keymap = { preset = 'default' },
+      keymap = { preset = 'enter' },
       appearance = { nerd_font_variant = 'mono' },
       completion = {
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
@@ -731,6 +759,11 @@ require('lazy').setup({
           update_n_lines = 'gn',
         },
       }
+
+      -- Split/join bracketed lists (function params, structs, slices, maps).
+      -- `gS` toggles between single-line and one-item-per-line.
+      -- For Go it adds/removes the trailing comma automatically.
+      require('mini.splitjoin').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
