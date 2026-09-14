@@ -123,6 +123,9 @@ return {
     },
   },
   opts = {
+    -- Default also contains 'terminal', which makes neo-tree refuse to reuse a
+    -- terminal window (e.g. the harpoon terminal) and open a split instead.
+    open_files_do_not_replace_types = { 'Trouble', 'qf', 'edgy' },
     filesystem = {
       window = {
         mappings = {
