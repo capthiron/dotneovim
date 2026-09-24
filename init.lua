@@ -176,7 +176,16 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic Config & Keymaps
 vim.diagnostic.config {
   severity_sort = true,
-  float = { border = 'rounded', source = 'if_many' },
+  float = {
+    border = 'rounded',
+    source = true,
+    suffix = function(diagnostic)
+      if diagnostic.code then
+        return ' [' .. diagnostic.code .. ']', 'Comment'
+      end
+      return '', ''
+    end,
+  },
   underline = { severity = { min = vim.diagnostic.severity.WARN } },
   virtual_text = true,
   virtual_lines = false,
@@ -184,6 +193,39 @@ vim.diagnostic.config {
 }
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- Opens the documentation page the language server links for the diagnostic
+-- under the cursor (LSP codeDescription.href). Prompts when several overlap.
+vim.keymap.set('n', '<leader>cd', function()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local lnum, col = cursor[1], cursor[2]
+  local candidates = {}
+  for _, d in ipairs(vim.diagnostic.get(0, { lnum = lnum - 1 })) do
+    local lsp = d.user_data and d.user_data.lsp
+    local href = lsp and lsp.codeDescription and lsp.codeDescription.href
+    local end_col = d.end_lnum == d.lnum and d.end_col or math.huge
+    if href and col >= d.col and col <= end_col then
+      table.insert(candidates, { diagnostic = d, href = href })
+    end
+  end
+
+  if #candidates == 0 then
+    vim.notify('No documentation link for the diagnostic under the cursor', vim.log.levels.INFO)
+  elseif #candidates == 1 then
+    vim.ui.open(candidates[1].href)
+  else
+    vim.ui.select(candidates, {
+      prompt = 'Open docs for',
+      format_item = function(c)
+        return string.format('[%s] %s', c.diagnostic.code or c.diagnostic.source, c.diagnostic.message)
+      end,
+    }, function(choice)
+      if choice then
+        vim.ui.open(choice.href)
+      end
+    end)
+  end
+end, { desc = '[C]ode [D]iagnostic docs' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
