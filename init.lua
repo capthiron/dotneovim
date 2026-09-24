@@ -227,6 +227,28 @@ vim.keymap.set('n', '<leader>cd', function()
   end
 end, { desc = '[C]ode [D]iagnostic docs' })
 
+-- Opens cheatsheet.md from the config dir in a centered float. It is a regular
+-- file buffer, so edits can be saved with :w.
+vim.keymap.set('n', '<leader>?', function()
+  local buf = vim.fn.bufadd(vim.fn.stdpath 'config' .. '/cheatsheet.md')
+  vim.fn.bufload(buf)
+  vim.bo[buf].filetype = 'markdown'
+
+  local width = math.min(100, math.floor(vim.o.columns * 0.8))
+  local height = math.floor(vim.o.lines * 0.8)
+  vim.api.nvim_open_win(buf, true, {
+    relative = 'editor',
+    width = width,
+    height = height,
+    row = math.floor((vim.o.lines - height) / 2),
+    col = math.floor((vim.o.columns - width) / 2),
+    border = 'rounded',
+    title = ' Cheatsheet ',
+    title_pos = 'center',
+  })
+  vim.keymap.set('n', 'q', '<cmd>close<CR>', { buffer = buf, desc = 'Close cheatsheet' })
+end, { desc = 'Open keybinding cheatsheet' })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
