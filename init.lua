@@ -759,16 +759,27 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
+    opts = {
+      on_highlights = function(hl, c)
+        hl.LineNr = { fg = c.dark5 }
+        hl.LineNrAbove = { fg = c.dark5 }
+        hl.LineNrBelow = { fg = c.dark5 }
+      end,
+    },
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-storm'
+      -- The colorscheme follows the `theme` script, see lua/custom/theme.lua.
+      require('custom.theme').setup()
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
   },
+  { 'catppuccin/nvim', name = 'catppuccin', lazy = true },
+  { 'rose-pine/neovim', name = 'rose-pine', lazy = true },
+  { 'rebelot/kanagawa.nvim', lazy = true },
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
