@@ -27,7 +27,6 @@ local function rtl_transform_line(line, win_width)
   end
 
   local NuiLine = require 'nui.line'
-  local NuiText = require 'nui.text'
 
   -- Separate indent segments from content segments.
   -- Indent segments are at the start and consist only of whitespace and box-drawing chars.
