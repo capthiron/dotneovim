@@ -694,6 +694,18 @@ require('lazy').setup({
         end,
       })
 
+      -- ansiblels only attaches to the yaml.ansible filetype, which Neovim never
+      -- detects on its own, so playbooks would otherwise open as plain yaml.
+      vim.filetype.add {
+        pattern = {
+          ['.*/playbooks/.*%.ya?ml'] = 'yaml.ansible',
+          ['.*/roles/.*/tasks/.*%.ya?ml'] = 'yaml.ansible',
+          ['.*/roles/.*/handlers/.*%.ya?ml'] = 'yaml.ansible',
+          ['.*/group_vars/.*%.ya?ml'] = 'yaml.ansible',
+          ['.*/host_vars/.*%.ya?ml'] = 'yaml.ansible',
+        },
+      }
+
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -741,6 +753,7 @@ require('lazy').setup({
         dockerls = {},
         terraformls = {},
         vtsls = {},
+        templ = {},
         stylua = {},
         lua_ls = {
           on_init = function(client)
