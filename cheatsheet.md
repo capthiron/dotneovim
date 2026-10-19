@@ -94,7 +94,7 @@ Everything else: `<leader>sk` (fuzzy search keymaps), `<leader>` + wait (which-k
 - `<leader>ds` document symbols, `<leader>ws` workspace symbols, `gO` symbols outline in loclist
 - `<leader>o` toggle Outline sidebar
 - `<leader>rn` rename, `<leader>ca` code action (cursor must be inside the diagnostic range)
-- `<leader>f` format buffer
+- `<leader>f` format buffer (Go: saving also organizes imports)
 - `<leader>th` toggle inlay hints
 
 ## Diagnostics
@@ -111,6 +111,7 @@ Everything else: `<leader>sk` (fuzzy search keymaps), `<leader>` + wait (which-k
 - `<leader>/` fuzzy search current buffer, `<leader>s/` grep open files
 - `<leader>sr` resume last picker (keeps your query)
 - `<leader>sn` search Neovim config files
+- `<leader>sl` search vendored team Go libraries (dir from `vim.g.team_lib_dir` in `lua/custom/local.lua`)
 - Inside a picker: `<C-/>` (insert) or `?` (normal) shows picker keys, `<C-q>` send all results to quickfix
 
 ## Quickfix and location list
@@ -121,12 +122,19 @@ Everything else: `<leader>sk` (fuzzy search keymaps), `<leader>` + wait (which-k
 
 ## Search and replace
 
+- `<leader>sR` project-wide search and replace (grug-far), prefilled with word under cursor
 - `:%s/old/new/gc` replace in file with confirm
 - `:%s//new/g` reuse last search pattern (search with `*` first)
 - `&` repeat last substitute on current line, `g&` on whole file
 - `:g/pattern/d` delete all matching lines, `:v/pattern/d` delete non-matching
 - `:g/pattern/norm A;` run normal commands on matching lines
 - `q:` command history window, `<C-f>` in cmdline to edit it as a buffer
+
+## Scratch pads
+
+- `<leader>.` toggle scratch pad (per project + branch, auto-saved), `2<leader>.` a second one
+- `<leader>S` pick from all scratch pads
+- `<CR>` in a Lua scratch pad runs it
 
 ## Buffers and windows
 
@@ -154,6 +162,21 @@ Everything else: `<leader>sk` (fuzzy search keymaps), `<leader>` + wait (which-k
 ## Folds
 
 - `za` toggle fold, `zo` `zc` open / close, `zR` `zM` open / close all
+
+## Tests (neotest)
+
+- `<leader>Tr` run nearest test, `<leader>Tf` run file, `<leader>Ta` run all, `<leader>Tl` rerun last
+- `<leader>Td` debug nearest test (dap)
+- `<leader>Ts` toggle test summary tree, `<leader>To` show output of test under cursor
+
+## Problems panel (Trouble)
+
+- `<leader>xx` workspace diagnostics, `<leader>xX` buffer diagnostics
+- `<leader>xq` quickfix list, `<leader>xl` LSP definitions / references
+
+## Undo history
+
+- `<leader>u` toggle undotree (history survives restarts, `undofile` is on)
 
 ## Debug
 

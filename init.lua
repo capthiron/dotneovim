@@ -93,6 +93,10 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Machine-specific settings that must stay out of this public repo (e.g.
+-- vim.g.team_lib_dir). lua/custom/local.lua is gitignored and optional.
+pcall(require, 'custom.local')
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -226,6 +230,14 @@ vim.keymap.set('n', '<leader>cd', function()
     end)
   end
 end, { desc = '[C]ode [D]iagnostic docs' })
+
+-- Built-in since Neovim 0.12 (runtime pack/dist/opt/nvim.undotree). The packadd
+-- happens on use because lazy.nvim resets 'runtimepath' during startup, which
+-- would drop a package added here.
+vim.keymap.set('n', '<leader>u', function()
+  vim.cmd.packadd 'nvim.undotree'
+  require('undotree').open()
+end, { desc = 'Toggle [U]ndotree' })
 
 -- Opens cheatsheet.md from the config dir in a centered float. It is a regular
 -- file buffer, so edits can be saved with :w.
@@ -418,6 +430,8 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>T', group = '[T]est' },
+        { '<leader>x', group = 'Trouble diagnostics' },
       },
     },
   },
@@ -490,6 +504,8 @@ require('lazy').setup({
             'node_modules/',
             'vendor/',
           },
+          -- 'lua/custom/theme.lua' displays as 'theme.lua  lua/custom', the dir dimmed.
+          path_display = { 'filename_first' },
           history = {
             path = vim.fn.stdpath 'data' .. '/telescope_history.sqlite3',
             limit = 100,
@@ -527,6 +543,40 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+
+      -- Team Go libraries are vendored below vim.g.team_lib_dir, set in the
+      -- gitignored lua/custom/local.lua.
+      -- vendor/ is gitignored and in file_ignore_patterns, so search just this
+      -- subtree with both off. The default patterns must not apply: '.git/' is a
+      -- Lua pattern and would also match module dirs like 'shared-lib.git/'.
+      vim.keymap.set('n', '<leader>sl', function()
+        local dir = vim.g.team_lib_dir
+        if not dir then
+          vim.notify('Set vim.g.team_lib_dir in lua/custom/local.lua', vim.log.levels.INFO)
+          return
+        end
+        if vim.fn.isdirectory(dir) == 0 then
+          vim.notify('No vendored team libraries in ' .. dir, vim.log.levels.INFO)
+          return
+        end
+        builtin.find_files {
+          search_dirs = { dir },
+          no_ignore = true,
+          file_ignore_patterns = {},
+          -- '.../shared-lib.git/debug/redis.go' displays as
+          -- 'redis.go  shared-lib/debug', the location dimmed.
+          path_display = function(_, path)
+            local module, rest = path:match '([^/]+)%.git/(.*)$'
+            if not module then
+              return path
+            end
+            local filename = vim.fs.basename(rest)
+            local location = vim.fs.dirname(module .. '/' .. rest)
+            local display = filename .. '  ' .. location
+            return display, { { { #filename + 2, #display }, 'TelescopeResultsComment' } }
+          end,
+        }
+      end, { desc = '[S]earch team [L]ibrary files' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -571,6 +621,28 @@ require('lazy').setup({
       { 'j-hui/fidget.nvim', opts = {} },
     },
     config = function()
+      -- gopls formatting only runs gofmt; unused/missing imports are fixed by the
+      -- separate source.organizeImports code action, applied synchronously here
+      -- before conform formats the buffer.
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        group = vim.api.nvim_create_augroup('go-organize-imports', { clear = true }),
+        pattern = '*.go',
+        callback = function(args)
+          local client = vim.lsp.get_clients({ bufnr = args.buf, name = 'gopls' })[1]
+          if not client then
+            return
+          end
+          local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
+          params.context = { only = { 'source.organizeImports' }, diagnostics = {} }
+          local result = client:request_sync('textDocument/codeAction', params, 1000, args.buf)
+          for _, action in ipairs(result and result.result or {}) do
+            if action.edit then
+              vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
+            end
+          end
+        end,
+      })
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -641,7 +713,19 @@ require('lazy').setup({
             on_dir(vim.fs.root(fname, 'go.work') or vim.fs.root(fname, 'go.mod') or vim.fs.root(fname, '.git'))
           end,
           settings = {
-            buildFlags = { '-tags=unit,integration' },
+            gopls = {
+              buildFlags = { '-tags=unit,integration' },
+              staticcheck = true,
+              codelenses = { test = true, tidy = true, generate = true, upgrade_dependency = true },
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+            },
           },
         },
         jdtls = {},
@@ -917,7 +1001,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

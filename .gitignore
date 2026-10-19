@@ -1,6 +1,7 @@
 tags
 test.sh
 .luarc.json
+lua/custom/local.lua
 nvim
 
 spell/
